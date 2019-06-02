@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# -gt 0 ]; then
+	java -jar ./out/artifacts/Python2ObfCCompiler_jar/Python2ObfCCompiler.jar "$1"
+	gcc -o ./$1 ./$1.c -lm
+	gcc -o ./$1_obf ./$1_obf.c -lm -trigraphs
+	echo "compilation complete"
+	echo "starting execution of c code"
+	./$1
+	echo "starting execution of obfuscated c code"
+	./$1_obf
+else 
+	echo "Please give the name of the file (no extension) you want to convert."
+	echo "For instance, type ./run ./myFile to convert ./myFile.py"	
+fi
